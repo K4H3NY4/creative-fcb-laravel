@@ -31,4 +31,16 @@ class PlaceholderController extends Controller
         // Handle errors (optional: you can also return a different view for errors)
         return view('index', ['posts' => []]);
     }
+
+    public function show($id)
+    {
+        $response = Http::get("https://jsonplaceholder.typicode.com/posts/{$id}");
+
+        if ($response->successful()) {
+            $post = $response->json();
+            return view('placeholder', ['post' => $post]);
+        }
+
+        return abort(404, 'Post not found');
+    }
 }

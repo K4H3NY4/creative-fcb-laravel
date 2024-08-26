@@ -12,12 +12,12 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($posts as $post)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <a href="{{ route('posts.show', $post['id']) }}" class="bg-white shadow-md rounded-lg overflow-hidden block">
                     <div class="p-6">
                         <h2 class="text-xl font-semibold mb-2">{{ $post['title'] }}</h2>
-                        <p class="text-gray-700">{{ $post['body'] }}</p>
+                        <p class="text-gray-700">{{ Str::limit($post['body'], 100) }}</p>
                     </div>
-                </div>
+                </a>
             @empty
                 <p class="text-gray-500">No posts available.</p>
             @endforelse
