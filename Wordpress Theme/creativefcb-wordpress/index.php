@@ -21,8 +21,8 @@ get_header();
 
         if ( is_home() && ! is_front_page() ) :
         ?>
-            <header class="mb-6">
-                <h1 class="page-title text-3xl font-bold text-gray-900"><?php single_post_title(); ?></h1>
+            <header class="mb-8">
+                <h1 class="page-title text-4xl font-extrabold text-gray-900 shadow-md p-4 bg-white rounded-md"><?php single_post_title(); ?></h1>
             </header>
         <?php
         endif;
@@ -30,19 +30,23 @@ get_header();
         /* Start the Loop */
         while ( have_posts() ) :
             the_post();
-
-            /*
-             * Include the Post-Type-specific template for the content.
-             * If you want to override this in a child theme, then include a file
-             * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-             */
-            get_template_part( 'template-parts/content', get_post_type() );
-
+        ?>
+            <article <?php post_class('mb-8 bg-white shadow-lg rounded-lg overflow-hidden'); ?>>
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-2">
+                        <a href="<?php the_permalink(); ?>" class="text-gray-900 hover:text-blue-600"><?php the_title(); ?></a>
+                    </h2>
+                    <div class="text-gray-700">
+                        <?php the_excerpt(); ?>
+                    </div>
+                </div>
+            </article>
+        <?php
         endwhile;
 
         the_posts_navigation(array(
-            'prev_text' => '<span class="sr-only">' . esc_html__( 'Previous page', 'creativefcb-wordpress' ) . '</span><span aria-hidden="true">&larr;</span>',
-            'next_text' => '<span class="sr-only">' . esc_html__( 'Next page', 'creativefcb-wordpress' ) . '</span><span aria-hidden="true">&rarr;</span>',
+            'prev_text' => '<span class="sr-only">' . esc_html__( 'Previous page', 'creativefcb-wordpress' ) . '</span><span aria-hidden="true" class="text-gray-700">&larr;</span>',
+            'next_text' => '<span class="sr-only">' . esc_html__( 'Next page', 'creativefcb-wordpress' ) . '</span><span aria-hidden="true" class="text-gray-700">&rarr;</span>',
         ));
 
     else :
@@ -52,3 +56,5 @@ get_header();
     endif;
     ?>
 </main><!-- #main -->
+
+
